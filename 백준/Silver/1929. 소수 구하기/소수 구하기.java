@@ -1,3 +1,4 @@
+
 import java.util.*;
 
 public class Main {
@@ -12,10 +13,10 @@ public class Main {
         primes[1] = true;
         for(int i=2; i<=Math.sqrt(end_number); i++){
             if(!primes[i]) {
-                for (int j = 2; j <= end_number; j++) {
-                    int prime_number = i * j;
-                    if (prime_number > end_number) break;
-                    primes[prime_number] = true;
+                for (int j = i + i; j <= end_number; j = j+i) {
+                    //int prime_number = i * j;
+                    //if (prime_number > end_number) break;
+                    primes[j] = true;
                 }
             }
         }
