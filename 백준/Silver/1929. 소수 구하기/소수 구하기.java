@@ -10,7 +10,7 @@ public class Main {
         boolean[] primes = new boolean[end_number + 1]; // true이면 소수 x
         primes[0] = true;
         primes[1] = true;
-        for(int i=2; i<=end_number; i++){
+        for(int i=2; i<=Math.sqrt(end_number); i++){
             if(!primes[i]) {
                 for (int j = 2; j <= end_number; j++) {
                     int prime_number = i * j;
