@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 public class Main {
@@ -7,7 +6,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         int start_no = sc.nextInt();
-        int max_value = 2000000;
+        int max_value = 2000000; // 1000000을 넣었을때 최대수 1003001
         boolean[] primes = new boolean[max_value + 1];
         int result = 0;
         primes[0] = true;
