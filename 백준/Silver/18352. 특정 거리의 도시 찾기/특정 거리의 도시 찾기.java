@@ -1,61 +1,73 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    static ArrayList<Integer>[] graph;
-    static ArrayList<Integer> answer = new ArrayList<>();
-    static int[] dist;
-    public static void main(String[] args) {
+    static ArrayList<Integer> A[];
+    static int visited[];
+    static List<Integer> answer;
+    public static void main(String[] args) throws IOException{
 
-        Scanner sc = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int numOfCity = sc.nextInt();
-        int numOfLoad = sc.nextInt();
-        int distance = sc.nextInt();
-        int startCity = sc.nextInt();
+        int numOfCity = Integer.parseInt(st.nextToken());
+        int numOfRoad = Integer.parseInt(st.nextToken());
+        int distance = Integer.parseInt(st.nextToken());
+        int startCity = Integer.parseInt(st.nextToken());
 
-        graph = new ArrayList[numOfCity+ 1];
-        dist = new int[numOfCity+ 1];
-        for(int i=1; i<=numOfCity; i++){
-            graph[i] = new ArrayList<>();
+        A = new ArrayList[numOfCity + 1];
+
+        for(int i=0; i<=numOfCity; i++){
+            A[i] = new ArrayList<Integer>();
         }
 
-        Arrays.fill(dist, -1);
+        for(int i=0; i<numOfRoad; i++){
+            st = new StringTokenizer(br.readLine());
+            int S = Integer.parseInt(st.nextToken());
+            int E = Integer.parseInt(st.nextToken());
 
-        for(int i=0; i<numOfLoad; i++){ // 그래프 작성 완료
-            int start = sc.nextInt();
-            int end = sc.nextInt();
-            graph[start].add(end);
+            A[S].add(E);
         }
 
-        Queue<Integer> queue = new LinkedList<>();
-        queue.add(startCity);
-        dist[startCity] = 0;
-
-        while(!queue.isEmpty()){
-            int currentCity = queue.poll();
-
-            for(int nextCity : graph[currentCity]){
-                if(dist[nextCity] == -1){
-                    dist[nextCity] = dist[currentCity] + 1;
-                    queue.add(nextCity);
-                }
-            }
+        visited = new int[numOfCity + 1];
+        for(int i=0; i<=numOfCity; i++){
+            visited[i] = -1; // 방문 배열 초기화
         }
 
-        for(int i=1; i<=numOfCity; i++){
-            if(dist[i] == distance){
+        BFS(startCity);
+
+        answer = new ArrayList<>();
+
+        for(int i=0; i<=numOfCity; i++){
+            if(visited[i] == distance){
                 answer.add(i);
             }
         }
 
         if(answer.isEmpty()){
-            System.out.println(-1);
+            System.out.println("-1");
         }else{
             Collections.sort(answer);
-            for(int city : answer){
-                System.out.println(city);
+        }
+
+        for(Integer a : answer){
+            System.out.println(a);
+        }
+
+    }
+
+    private static void BFS(int node){
+        Queue<Integer> q = new LinkedList<Integer>();
+        q.add(node);
+        visited[node] = 0;
+        while(!q.isEmpty()){
+            int current_node = q.poll();
+            for(int next_node : A[current_node]){
+                if(visited[next_node] == -1){
+                    visited[next_node] = visited[current_node] + 1;
+                    q.add(next_node);
+                }
             }
         }
     }
-
 }
