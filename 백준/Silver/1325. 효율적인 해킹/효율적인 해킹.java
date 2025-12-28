@@ -1,9 +1,8 @@
-
 import java.io.*;
 import java.util.*;
 
 public class Main {
-
+    //인접 리스트 구조를 더 단순화 ArrayList 하면 시간초과
     static List<Integer> A[];
     static boolean[] visited;
     static List<Integer> result;
@@ -49,14 +48,16 @@ public class Main {
 
         Collections.sort(result);
 
-        for(int a : result){
-            System.out.println(a);
+        StringBuilder sb = new StringBuilder();
+        for(int a : result) {
+            sb.append(a).append(" ");
         }
+        System.out.println(sb.toString().trim());
     }
 
     private static int BFS(int computer_node){
 
-        Queue<Integer> q = new LinkedList();
+        Queue<Integer> q = new ArrayDeque<>();
         int cnt = 1;
         q.add(computer_node);
         visited[computer_node] = true;
@@ -66,6 +67,7 @@ public class Main {
 
             for(int next_node : A[now_computer]){
                 if(!visited[next_node]) {
+                    //q에 넣어줄떄 미리 true로 바꿔야 시간초과 회피
                     visited[next_node] = true;
                     q.add(next_node);
                     cnt++;
