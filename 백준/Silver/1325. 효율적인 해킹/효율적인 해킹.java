@@ -57,6 +57,7 @@ public class Main {
 
     private static int BFS(int computer_node){
 
+        //Queue<Integer> q = new LinkedList(); -> 제미나이 추천 확인 필요 
         Queue<Integer> q = new ArrayDeque<>();
         int cnt = 1;
         q.add(computer_node);
