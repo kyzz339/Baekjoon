@@ -41,11 +41,27 @@ public class Main {
             } // 데이터 준비 완료
 
             for(int j = 1; j <= N; j++) {
-                if(!visited[j]) BFS(j);
+                if(!visited[j]) DFS(j);
             }
 
             System.out.println(result);
         }
+    }
+
+    private static void DFS(int node){
+
+        visited[node] = true;
+
+        for(int next_node : linkedList[node]){
+            if(!visited[next_node]){
+                visited[next_node] = true;
+                value[next_node] = 1 - value[node];
+                DFS(next_node);
+            }else{
+                if(value[node] == value[next_node]) result = "NO";
+            }
+        }
+
     }
 
     private static void BFS(int node){
